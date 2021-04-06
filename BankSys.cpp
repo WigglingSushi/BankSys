@@ -1,101 +1,43 @@
 //Pass class variables by reference
 #include<iostream>
+#include<fstream>
 #include<iomanip>
 #include<string>
 #include<conio.h>
 
 using namespace std;
+//fstream f;
 
-class bankInf {
+class bankInf 
+{
+
 public:
-	double Balamount=0, depAmt, InpAmt=0;
-	string fName, lName, emailAd;
-	char PIN[4];
+	double Balamount=0;
+	char name[50];
+	int accNum;
 
-	void open_account()
-	{
-		system("cls");
+	void open_account(double);
+	void deposit(double);
+	void withdraw(double);
+	void checkBal();
 
+	int getAccNum();
 
+/*	int retacno() const;		//function to return account number
+	int retdeposit() const;		//function to return balance amount
+	char rettype() const;		//function to return type of account
+	*/
 
-		//Cin buffer daw
-		cout << "First Name: " << endl;
-		getline(cin, fName);
-		cin.ignore();
+	};
 
-		cout << "Last Name: " << endl;
-		getline(cin, lName);
-		cin.ignore();
-
-		cout << "email address: " << endl;
-		getline(cin, emailAd);
-		cin.ignore();
-
-
-
-		//di pa mapagana
-		/*cout << "(4-Digit)PIN: ";
-		for (int i = 1; i <= 4; i++)
-		{
-			PIN[i] = _getch(); _putch('*');
-			if (PIN[i] == 4) break;
-		}
-		*/
-
-		cout << "Initial Deposit: " << endl;
-		cin >> depAmt;
-		cin.ignore();
-		Balamount = Balamount + depAmt;
-
-		cout << fName << " " << lName << endl;
-		cout << emailAd << endl;
-		cout << Balamount << endl;
-
-	}
-
-
-	void deposit()
-	{
-		system("cls");
-		
-
-		cout << "Input the desired amount: " << endl;
-		cin >> InpAmt;
-
-		Balamount = Balamount + InpAmt;
-		cout << "Current Balance: " << Balamount << endl;
-		system("pause");
-	}
-
-	void withdraw()
-	{
-		system("cls");
-	
-
-		cout << "Input the desired amount: " << endl;
-		cin >> InpAmt;
-
-		Balamount = Balamount - InpAmt;
-		cout << "Current Balance: " << Balamount << endl;
-		system("pause");
-	}
-
-	void checkBal()
-	{
-		system("cls");
-
-		cout << "Your current balance is: " << endl;
-		cout << Balamount << endl;
-
-		system("pause");
-	}
-};
 
 
 int main()
 {
-	bankInf inf;
+	int num = 0;
 	int hAcc;
+	bankInf bank;
+
 
 	do
 	{
@@ -113,6 +55,7 @@ int main()
 
 		if (hAcc == 1)
 		{
+		
 			int h;
 			system("CLS");
 
@@ -129,13 +72,13 @@ int main()
 			switch (h)
 			{
 			case 1:
-				inf.deposit();
+				bank.deposit(num);
 				break;
 			case 2:
-				inf.withdraw();
+				bank.withdraw(num);
 				break;
 			case 3:
-				inf.checkBal();
+				bank.checkBal();
 				break;
 			case 4:
 				return 0;
@@ -150,8 +93,107 @@ int main()
 
 		else if (hAcc == 2)
 		{
-			inf.open_account();
+			bank.open_account(num);
 		}
 	} 	while (hAcc != 3);
 }
 
+void bankInf::open_account(double val)
+{
+	system("cls");
+
+	fstream f;
+	
+	f.open("account.txt", ios::out);
+	if (!f) 
+	{
+		cout << "\nFile not created!";
+	}
+	else {
+		cout << "\nFile created successfully!";
+		f.close();
+	}
+	
+	//Cin buffer daw
+	cout << "Full Name: " << endl;
+	cin.ignore();
+	cin.getline(name, 50);
+	
+
+
+
+	cout << "Initial Deposit: " << endl;
+	cin >> val;
+	Balamount = Balamount + val;
+
+	system("cls");
+	cout << name << endl;
+	cout << Balamount << endl;
+	system("pause");
+}
+
+
+void bankInf::deposit(double val)
+{
+	system("cls");
+
+	cout << "Your current balance is: " << endl;
+	cout << Balamount << endl;
+
+	cout << "Input the desired amount: " << endl;
+	cin >> val;
+
+	Balamount = Balamount + val;
+	cout << "Current Balance: " << Balamount << endl;
+	system("pause");
+}
+
+void bankInf::withdraw(double val)
+{
+	system("cls");
+
+	cout << "Your current balance is: " << endl;
+	cout << Balamount << endl;
+
+	cout << "Input the desired amount: " << endl;
+	cin >> val;
+
+	Balamount = Balamount - val;
+	cout << "Current Balance: " << Balamount << endl;
+	system("pause");
+}
+
+void bankInf::checkBal()
+{
+	system("cls");
+
+
+	cout << "Your current balance is: " << endl;
+	cout << Balamount << endl;
+
+	system("pause");
+}
+
+int bankInf::getAccNum()
+{
+	return accNum;
+}
+
+
+
+/*
+int account::retacno() const
+{
+	return acno;
+}
+
+int account::retdeposit() const
+{
+	return dep;
+}
+
+char account::rettype() const
+{
+	return type;
+}
+*/
