@@ -1,2 +1,3 @@
 ﻿  BankSys.cpp
+C:\Users\Hulyan\Documents\Project\BankSys\BankSys\BankSys.cpp(79,6): warning C4101: 'hAcc': unreferenced local variable
   BankSys.vcxproj -> C:\Users\Hulyan\Documents\Project\BankSys\BankSys\Debug\BankSys.exe

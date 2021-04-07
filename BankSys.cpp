@@ -4,196 +4,274 @@
 #include<iomanip>
 #include<string>
 #include<conio.h>
+#include<vector>
 
 using namespace std;
 //fstream f;
 
 class bankInf 
 {
+	//fstream f;
 
 public:
-	double Balamount=0;
+	
+
+	double Balamount=0, InpAmt = 0;
 	char name[50];
-	int accNum;
+	string accNum;
+	string val;
+	
+	//void write_account();
 
-	void open_account(double);
-	void deposit(double);
-	void withdraw(double);
+	void open_account();
+	void deposit();
+	void withdraw();
 	void checkBal();
+	//void create_acc();
 
-	int getAccNum();
+	/*
+	void display_all();		//function to display all account details
 
-/*	int retacno() const;		//function to return account number
-	int retdeposit() const;		//function to return balance amount
-	char rettype() const;		//function to return type of account
+	void show_account() const;	//function to show data on screen
+
+	void report() const;	//function to show data in tabular format
+
+	double retacno() const;		//function to return account number
+	double retdeposit() const;		//function to return balance amount
 	*/
 
 	};
+/*
+void createAcc() 
+{
+	bankInf temp;
+	vector<bankInf> bankszz;
+		//put code to get details
 
 
+		
+
+		bankszz.push_back(temp);
+}
+*/
+
+/*
+void bankInf::report() const
+{
+	cout << accNum << setw(10) << " " << name << setw(10) << " "  << Balamount << endl;
+}
+*/
+
+/*
+void bankInf::show_account() const
+{
+	cout << "\nAccount No. : " << accNum;
+	cout << "\nAccount Holder Name : ";
+	cout << name;
+	cout << "\nBalance amount : " << Balamount;
+}
+*/
 
 int main()
 {
-	int num = 0;
-	int hAcc;
 	bankInf bank;
+	string num;
+	int hAcc, a = 0;
+	int h;
 
 
 	do
 	{
-		system("cls");
+
+
+		system("CLS");
+
 		cout << "************************************************************************************************************************" << endl;
 		cout << setw(67) << "BANK SYSTEM" << endl;
 		cout << "************************************************************************************************************************" << endl;
-		cout << setw(70) << "[1] - Yes" << endl;
-		cout << setw(69) << "[2] - No" << endl;
-		cout << setw(73) << "[3] - Cancel" << endl;
+		cout << setw(70) << "[1] - Deposit" << endl;
+		cout << setw(71) << "[2] - Withdraw" << endl;
+		cout << setw(76) << "[3] - Check Balance" << endl;
+		cout << setw(77) << "[4] - Create Account" << endl;
+		cout << setw(67) << "[5] - Exit" << endl;
 		cout << "************************************************************************************************************************" << endl;
-
-		cout << "Do you already have an account?" << endl;
-		cin >> hAcc;
-
-		if (hAcc == 1)
-		{
 		
-			int h;
-			system("CLS");
+		cout << "Input: ";
+		cin >> h;
+		switch (h)
+		{
+		case 1:
 
-			cout << "************************************************************************************************************************" << endl;
-			cout << setw(67) << "BANK SYSTEM" << endl;
-			cout << "************************************************************************************************************************" << endl;
-			cout << setw(70) << "[1] - Deposit" << endl;
-			cout << setw(71) << "[2] - Withdraw" << endl;
-			cout << setw(76) << "[3] - Check Balance" << endl;
-			cout << setw(67) << "[4] - Exit" << endl;
-			cout << "************************************************************************************************************************" << endl;
+			bank.deposit();
+			break;
+		case 2:
 
-			cin >> h;
-			switch (h)
+			bank.withdraw();
+			break;
+		case 3:
+
+			bank.checkBal();
+			break;
+		case 4:
+			bank.open_account();
+			break;
+		case 5:
+			return 0;
+		default:
+			if (h != 6)
 			{
-			case 1:
-				bank.deposit(num);
+				cout << "Invalid! Please Try Again.";
 				break;
-			case 2:
-				bank.withdraw(num);
-				break;
-			case 3:
-				bank.checkBal();
-				break;
-			case 4:
-				return 0;
-			default:
-				if (h != 5)
-				{
-					cout << "Invalid! Please Try Again.";
-					break;
-				}
 			}
 		}
-
-		else if (hAcc == 2)
-		{
-			bank.open_account(num);
-		}
-	} 	while (hAcc != 3);
+	}
+			while (h != 5);
 }
 
-void bankInf::open_account(double val)
+/*
+void bankInf::create_acc()
 {
 	system("cls");
+	cout << "************************************************************************************************************************" << endl;
+	cout << setw(67) << "BANK SYSTEM" << endl;
+	cout << "************************************************************************************************************************" << endl;
+	cout << setw(70) << "[1] - Yes" << endl;
+	cout << setw(69) << "[2] - No" << endl;
+	cout << setw(73) << "[3] - Cancel" << endl;
+	cout << "************************************************************************************************************************" << endl;
 
-	fstream f;
+}
+*/
+
+void bankInf::open_account()
+{
+	system("cls");
 	
-	f.open("account.txt", ios::out);
-	if (!f) 
-	{
-		cout << "\nFile not created!";
-	}
-	else {
-		cout << "\nFile created successfully!";
-		f.close();
-	}
-	
-	//Cin buffer daw
 	cout << "Full Name: " << endl;
 	cin.ignore();
 	cin.getline(name, 50);
 	
-
+	cout << "Account Number: " << endl;
+	cin >> accNum;
 
 
 	cout << "Initial Deposit: " << endl;
-	cin >> val;
-	Balamount = Balamount + val;
+	cin >> InpAmt;
+	Balamount = Balamount + InpAmt;
 
 	system("cls");
 	cout << name << endl;
+	cout << accNum << endl;
 	cout << Balamount << endl;
+
 	system("pause");
 }
 
 
-void bankInf::deposit(double val)
+void bankInf::deposit()
 {
-	system("cls");
-
-	cout << "Your current balance is: " << endl;
-	cout << Balamount << endl;
-
-	cout << "Input the desired amount: " << endl;
+	cout << "\n\n\tEnter The account No. : ";
 	cin >> val;
 
-	Balamount = Balamount + val;
-	cout << "Current Balance: " << Balamount << endl;
-	system("pause");
+	int vali = stoi(val);
+	int accNumi = stoi(accNum);
+
+	system("cls");
+	if (accNumi == vali)
+	{
+		cout << "Your current balance is: " << endl;
+		cout << Balamount << endl;
+
+		cout << "Input the desired amount: " << endl;
+		cin >> InpAmt;
+
+		Balamount = Balamount + InpAmt;
+				cout << "Current Balance: " << Balamount << endl << endl;
+		system("pause");
+	}
+	else
+	{
+		cout << "invalid!" << endl <<endl;
+		system("pause");
+	}
 }
 
-void bankInf::withdraw(double val)
+void bankInf::withdraw()
 {
-	system("cls");
-
-	cout << "Your current balance is: " << endl;
-	cout << Balamount << endl;
-
-	cout << "Input the desired amount: " << endl;
+	cout << "\n\n\tEnter The account No. : ";
 	cin >> val;
 
-	Balamount = Balamount - val;
-	cout << "Current Balance: " << Balamount << endl;
-	system("pause");
+
+	int vali = stoi(val);
+	int accNumi = stoi(accNum);
+
+	system("cls");
+	if(accNumi == vali)
+	{
+		cout << "Your current balance is: " << endl;
+		cout << Balamount << endl;
+
+		cout << "Input the desired amount: " << endl;
+		cin >> InpAmt;
+
+		Balamount = Balamount - InpAmt;
+		
+		system("cls");
+		
+		if (Balamount < 500)
+		{
+			Balamount += InpAmt;
+			cout << "Insufficient Funds" <<endl;
+			cout << "Current Balance: " << Balamount << endl << endl;
+		}
+		else
+		{
+			cout << "Current Balance: " << Balamount << endl << endl;
+		}
+		system("pause");
+	}
+	else
+	{
+		cout << "invalid!"<<endl;
+		system("pause");
+	}
 }
 
 void bankInf::checkBal()
 {
+	cout << "\n\n\tEnter The account No. : ";
+	cin >> val;
+
+
+	int vali = stoi(val);
+	int accNumi = stoi(accNum);
+
 	system("cls");
-
-
+	
+	if(accNumi == vali)
+	{
+	cout << name << endl;
 	cout << "Your current balance is: " << endl;
-	cout << Balamount << endl;
+	cout << Balamount << endl << endl;
 
 	system("pause");
 }
+	else
+	{
+		cout << "invalid!"<<endl;
+		system("pause");
+	}
+}
 
-int bankInf::getAccNum()
+
+/*
+double bankInf::retacno() const
 {
 	return accNum;
 }
 
-
-
-/*
-int account::retacno() const
+double bankInf::retdeposit() const
 {
-	return acno;
-}
-
-int account::retdeposit() const
-{
-	return dep;
-}
-
-char account::rettype() const
-{
-	return type;
+	return InpAmt;
 }
 */
