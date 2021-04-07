@@ -221,7 +221,11 @@ void bankInf::withdraw()
 		if (Balamount < 500)
 		{
 			Balamount += InpAmt;
-			cout << "Insufficient Funds" <<endl;
+			cout << "Insufficient Funds!" <<endl;
+			
+			system("pause");
+			system("cls");
+			
 			cout << "Current Balance: " << Balamount << endl << endl;
 		}
 		else
